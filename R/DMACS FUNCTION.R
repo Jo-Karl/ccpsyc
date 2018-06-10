@@ -74,6 +74,7 @@ fcl_lt_vrnc <- lavaan::inspect(fit.cfa, what = "est") %>%
 ## create functions to calculate the mean predicted response
 
 l <- list()
+r <- list()
 for(i in c(1:nitems)){
   ## focal group predicted value
   focal.fn <- function(x){
