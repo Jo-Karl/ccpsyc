@@ -5,7 +5,8 @@
 #'
 #' @return Returns dMACS for each item.
 #' @export
-#' @import dplyr
+#' @importFrom magrittr "%>%"
+#' @import lavaan
 #'
 #' @examples dMACS
 dMACS <- function(fit.cfa){
@@ -97,7 +98,8 @@ for(i in c(1:nitems)){
                                               upper = cfa_minmax(fit.cfa)[,2])$value),3)
 
   l[[length(l) + 1]] <- dMACS
+  r[[length(r) + 1]] <- paste("Item",i)
 }
-m <- matrix(unlist(l), nrow = nitems)
+m <- matrix(unlist(l), nrow = nitems, dimnames = r)
 return(m)
 }
