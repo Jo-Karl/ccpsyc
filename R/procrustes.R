@@ -10,24 +10,43 @@
 #' @import MCMCpack
 #' @import psych
 #' @export
-prost <- function(loading, norm, rotated = FALSE) {
-  if (rotated == TRUE){
-    rotated <- MCMCpack::procrustes(loading, norm)
-    cong.corr <- psych::factor.congruence(rotated$X.new, norm)
-    congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
-    lin.corr <- cor(rotated$X.new, norm)
-    lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],2)
-    congruence.list <- list(rotated.matrix = rotated, tuckers.phi = congruence,
-                            linearity = lin)
-    return (congruence.list)
+prost <- function(loading, norm, rotated = FALSE, MCMC = FALSE) {
+  if (MCMC == TRUE){
+    if (rotated == TRUE){
+      rotated <- MCMCpack::procrustes(loading, norm)
+      cong.corr <- psych::factor.congruence(rotated$X.new, norm)
+      congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
+      lin.corr <- cor(rotated$X.new, norm)
+      lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],2)
+      congruence.list <- list(rotated.matrix = rotated, tuckers.phi = congruence,
+                              correlation = lin)
+    }else{
+      rotated <- MCMCpack::procrustes(loading, norm)
+      cong.corr <- psych::factor.congruence(rotated$X.new, norm)
+      congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
+      lin.corr <- cor(rotated$X.new, norm)
+      lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],2)
+      congruence.list <- list(tuckers.phi = congruence,
+                              correlation = lin)
+    }
   }else{
-    rotated <- MCMCpack::procrustes(loading, norm)
-    cong.corr <- psych::factor.congruence(rotated$X.new, norm)
-    congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
-    lin.corr <- cor(rotated$X.new, norm)
-    lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],2)
-    congruence.list <- list(tuckers.phi = congruence,
-                            linearity = lin)
-    return (congruence.list)
+    if (rotated == TRUE){
+      rotated <- psych::TargetQ(loading, Target = list(norm))
+      cong.corr <- psych::factor.congruence(rotated$loadings, norm)
+      congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
+      lin.corr <- cor(rotated$loadings, norm)
+      lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],2)
+      congruence.list <- list(rotated.matrix = rotated, tuckers.phi = congruence,
+                              correlation = lin)
+    }else{
+      rotated <- psych::TargetQ(loading, Target = list(norm))
+      cong.corr <- psych::factor.congruence(rotated$loadings, norm)
+      congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
+      lin.corr <- cor(rotated$loadings, norm)
+      lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],2)
+      congruence.list <- list(tuckers.phi = congruence,
+                              correlation = lin)
+    }
   }
+  return (congruence.list)
 }
