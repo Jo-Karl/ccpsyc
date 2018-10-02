@@ -1,7 +1,7 @@
 Package: ccpsyc
 Type: Package
 Title: Package for Cross-Cultural Analyses
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person("Johannes", "Karl", email = "johannes.a.karl@gmail.com",
   role = c("aut", "cre"))
 Description: This package is intended to combine multiple functions automating 
