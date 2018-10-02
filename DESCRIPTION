@@ -10,7 +10,7 @@ Description: This package is intended to combine multiple functions automating
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: MCMCpack (>= 1.4-0), 
+Depends: MCMCpack (>= 1.4-0), 
          psych (>= 1.7.8),
          dplyr (>= 0.7.4)
 RoxygenNote: 6.0.1
