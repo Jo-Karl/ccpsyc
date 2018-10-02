@@ -1,45 +1,23 @@
 
   # Helper ------------------------------------------------------------------
 
-  #' Title
+  #' One-step equivalence testing
+  #' The function allows for a simple one step test of configural, metric, and
+  #' scalar equivalence between multiple groups.
   #'
-  #' @param object
-  #'
-  #' @return
+  #' @param x CFA model identical to models provided to lavaan.
+  #' @param dat A data frame or tibble containing the raw data for the
+  #'            specified model.
+  #' @param dx A character string that indicates the column of dat that contains
+  #'           the grouping variable. e.g "country"
+  #' @return Returns a data frame with the fit indices for each model and delta
+  #'         values comparing the different levels of equivalence.
   #' @export equival
   #' @import lavaan
   #' @examples
-  gamma_hat_scaled <- function (object) {
-      fit <- lavInspect(object, "fit")
-      p <- length(lavaan::lavNames(object, type = "ov", group = 1))
-      nParam <- fit["npar"]
-      ngroup <- lavInspect(object, "ngroups")
-      n <- lavInspect(object, "ntotal")
-      n <- n - ngroup
-              gammaHatScaled <- p/(p + 2 * ((fit["chisq.scaled"] -
-                  fit["df.scaled"])/n))
-              adjGammaHatScaled <- 1 - (((ngroup * p * (p + 1))/2)/fit["df.scaled"]) *
-                  (1 - gammaHatScaled)
-  		adjGammaHatScaled
-  }
+  #' model_voice <- 'voice =~ voice1 + voice2 + voice3'
+  #' equival(x = model_voice, dat = example, dx = "country")
 
-
-  MNCI <- function (object){
-  ## McDonald, R. P. (1989). An index of goodness-of-fit based on noncentrality.
-  ##  Journal of Classification, 6(1), 97-103. doi: 10.1007/bf01908590
-  fit <- inspect(object, "fit") # lavaan's default output
-  chisq <- unlist(fit["chisq.scaled"]) #model Chi-square
-  df <- unlist(fit["df.scaled"]) # model df
-  n <- object@SampleStats@ntotal
-  ncp <- max(chisq - df,0)  #non-centrality parameter
-  d <- ncp/(n-1)  #scaled non-centrality parameter
-  #McDonald's non-centrality index
-  Mc <- exp((d)*-.5)
-  #Print the value
-  Mc
-  }
-
-  # Main --------------------------------------------------------------------
 
 
   equival <- function(x, dat, group){
