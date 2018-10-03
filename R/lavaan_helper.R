@@ -2,7 +2,7 @@
 #'
 #' @param lavaan.fit Model fitted with lavaan
 #' @param ... Arguments passed to lavTestScore
-#'
+#' @author Maksim Rudnev
 #' @export lavTestScore.clean
 
 lavTestScore.clean <- function(lavaan.fit,  ...) {
