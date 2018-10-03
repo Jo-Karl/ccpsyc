@@ -14,3 +14,6 @@ lavTestScore.clean(lavaan.fit, ...)
 \description{
 Get more comprehensible output from lavTestScore
 }
+\author{
+Maksim Rudnev
+}
