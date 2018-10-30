@@ -20,22 +20,25 @@
 
 
 
-  equival <- function(x, dat, group){
+  equival <- function(x, dat, group, standart_lv = TRUE){
 
   PD_1 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
                       estimator = "MLM",
-                      group = paste(group))
+                      group = paste(group),
+                      std.lv = standart_lv)
 
   PD_2 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
                       estimator = "MLM", group = paste(group),
-                      group.equal = c("loadings"))
+                      group.equal = c("loadings"),
+                      std.lv = standart_lv)
 
   PD_3 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
                       estimator = "MLM", group = paste(group),
-                      group.equal = c("loadings", "intercepts"))
+                      group.equal = c("loadings", "intercepts"),
+                      std.lv = standart_lv)
 
   pd_conf <- lavaan::fitmeasures(PD_1)
 
