@@ -10,6 +10,10 @@
   #'            specified model.
   #' @param dx A character string that indicates the column of dat that contains
   #'           the grouping variable. e.g "country"
+  #' @param standart_lv A boolean that indicates whether the latent variables
+  #'                    should be standardised.
+  #' @param orthogonal A boolean that indicates whether the latent variables
+  #'                    should be orthogonal.
   #' @return Returns a data frame with the fit indices for each model and delta
   #'         values comparing the different levels of equivalence.
   #' @export equival
@@ -20,25 +24,28 @@
 
 
 
-  equival <- function(x, dat, group, standart_lv = TRUE){
+  equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE){
 
   PD_1 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
                       estimator = "MLM",
                       group = paste(group),
-                      std.lv = standart_lv)
+                      std.lv = standart_lv,
+                      orthogonal = orthog)
 
   PD_2 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
                       estimator = "MLM", group = paste(group),
                       group.equal = c("loadings"),
-                      std.lv = standart_lv)
+                      std.lv = standart_lv,
+                      orthogonal = orthog)
 
   PD_3 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
                       estimator = "MLM", group = paste(group),
                       group.equal = c("loadings", "intercepts"),
-                      std.lv = standart_lv)
+                      std.lv = standart_lv,
+                      orthogonal = orthog)
 
   pd_conf <- lavaan::fitmeasures(PD_1)
 

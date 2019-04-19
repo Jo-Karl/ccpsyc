@@ -2,6 +2,8 @@
 #'
 #' @param fit.cfa Lavaan output object with two groups and a single
 #' factor.
+#' @param group1 String for first group in the grouping factor
+#' @param group2 String for second group in the grouping factor
 #'
 #' @return Returns dMACS for each item.
 #' @export
@@ -9,7 +11,7 @@
 #' @import lavaan
 #'
 #' @examples dMACS
-dMACS <- function(fit.cfa){
+dMACS <- function(fit.cfa, group1, group2){
 
   # nitems ------------------------------------------------------------------
   nitems <- lavaan::lavInspect(fit.cfa, what = "rsquare") %>% .[[1]] %>%
@@ -52,8 +54,8 @@ dMACS <- function(fit.cfa){
       names(.) %>%
       length(.)
     for (i in 1:test){
-      grp1 <- cfa.se$NZ$nu[i] * sqrt(cfa.n[1])
-      grp2 <- cfa.se$BRA$nu[i] * sqrt(cfa.n[2])
+      grp1 <- cfa.se[[group1]]$nu[i] * sqrt(cfa.n[1])
+      grp2 <- cfa.se[[group2]]$nu[i] * sqrt(cfa.n[2])
       numerator <- ((cfa.n[1] - 1) * grp1 + (cfa.n[2] - 1) * grp2)
       denominator <- (cfa.n[1] - 1) + (cfa.n[2] - 1)
       pooled.sd <- numerator / denominator
