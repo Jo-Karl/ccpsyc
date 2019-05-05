@@ -10,7 +10,7 @@
 #' @import MCMCpack
 #' @import psych
 #' @export
-prost <- function(loading, norm, rotated = FALSE, MCMC = FALSE) {
+prost <- function(loading, norm, rotated = FALSE, MCMC = TRUE) {
   if (MCMC == TRUE){
     if (rotated == TRUE){
       rotated <- MCMCpack::procrustes(loading, norm)
