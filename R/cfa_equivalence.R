@@ -17,7 +17,6 @@
   #' @return Returns a data frame with the fit indices for each model and delta
   #'         values comparing the different levels of equivalence.
   #' @export equival
-  #' @import lavaan
   #' @examples
   #' model_voice <- 'voice =~ voice1 + voice2 + voice3'
   #' equival(x = model_voice, dat = example, dx = "country")

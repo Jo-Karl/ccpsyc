@@ -4,11 +4,15 @@
 \alias{dMACS}
 \title{Computes dMACS}
 \usage{
-dMACS(fit.cfa)
+dMACS(fit.cfa, group1, group2)
 }
 \arguments{
 \item{fit.cfa}{Lavaan output object with two groups and a single
 factor.}
+
+\item{group1}{String for first group in the grouping factor}
+
+\item{group2}{String for second group in the grouping factor}
 }
 \value{
 Returns dMACS for each item.

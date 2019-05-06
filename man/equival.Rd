@@ -6,7 +6,7 @@
 The function allows for a simple one step test of configural, metric, and
 scalar equivalence between multiple groups.}
 \usage{
-equival(x, dat, group)
+equival(x, dat, group, standart_lv = TRUE, orthog = TRUE)
 }
 \arguments{
 \item{x}{CFA model identical to models provided to lavaan.}
@@ -14,8 +14,14 @@ equival(x, dat, group)
 \item{dat}{A data frame or tibble containing the raw data for the
 specified model.}
 
+\item{standart_lv}{A boolean that indicates whether the latent variables
+should be standardised.}
+
 \item{dx}{A character string that indicates the column of dat that contains
 the grouping variable. e.g "country"}
+
+\item{orthogonal}{A boolean that indicates whether the latent variables
+should be orthogonal.}
 }
 \value{
 Returns a data frame with the fit indices for each model and delta

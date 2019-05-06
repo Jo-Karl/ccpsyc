@@ -8,7 +8,6 @@
 #' @return Returns dMACS for each item.
 #' @export
 #' @importFrom magrittr "%>%"
-#' @import lavaan
 #'
 #' @examples dMACS
 dMACS <- function(fit.cfa, group1, group2){

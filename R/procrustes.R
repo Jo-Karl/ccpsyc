@@ -7,11 +7,8 @@
 #'
 #' @return Returns Tuckers Phi evaluating the congruence of the loading matrix
 #'         to the normative matrix
-#' @import MCMCpack
-#' @import psych
 #' @export
-prost <- function(loading, norm, rotated = FALSE, MCMC = TRUE) {
-  if (MCMC == TRUE){
+prost <- function(loading, norm, rotated = FALSE) {
     if (rotated == TRUE){
       rotated <- MCMCpack::procrustes(loading, norm)
       cong.corr <- psych::factor.congruence(rotated$X.new, norm)
@@ -29,24 +26,5 @@ prost <- function(loading, norm, rotated = FALSE, MCMC = TRUE) {
       congruence.list <- list(tuckers.phi = congruence,
                               correlation = lin)
     }
-  }else{
-    if (rotated == TRUE){
-      rotated <- psych::TargetQ(loading, Target = list(norm))
-      cong.corr <- psych::factor.congruence(rotated$loadings, norm)
-      congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
-      lin.corr <- cor(rotated$loadings, norm)
-      lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],2)
-      congruence.list <- list(rotated.matrix = rotated, tuckers.phi = congruence,
-                              correlation = lin)
-    }else{
-      rotated <- psych::TargetQ(loading, Target = list(norm))
-      cong.corr <- psych::factor.congruence(rotated$loadings, norm)
-      congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
-      lin.corr <- cor(rotated$loadings, norm)
-      lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],2)
-      congruence.list <- list(tuckers.phi = congruence,
-                              correlation = lin)
-    }
-  }
   return (congruence.list)
 }
