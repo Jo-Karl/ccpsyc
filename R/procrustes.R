@@ -11,6 +11,7 @@
 prost <- function(loading, norm, rotated = FALSE) {
     if (rotated == TRUE){
       rotated <- MCMCpack::procrustes(loading, norm)
+      cln <- "other"
       cong.corr <- psych::factor.congruence(rotated$X.new, norm)
       congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
       lin.corr <- cor(rotated$X.new, norm)
@@ -19,6 +20,7 @@ prost <- function(loading, norm, rotated = FALSE) {
                               correlation = lin)
     }else{
       rotated <- MCMCpack::procrustes(loading, norm)
+      cln <- "other"
       cong.corr <- psych::factor.congruence(rotated$X.new, norm)
       congruence <- cong.corr[col(cong.corr) == row(cong.corr)]
       lin.corr <- cor(rotated$X.new, norm)
