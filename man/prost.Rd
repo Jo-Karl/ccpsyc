@@ -4,7 +4,7 @@
 \alias{prost}
 \title{Procrustes rotation function, returning Tucker's Phi}
 \usage{
-prost(loading, norm, rotated = FALSE)
+prost(loading, norm, rotated = FALSE, digits = 2)
 }
 \arguments{
 \item{loading}{A correlation matrix to be rotated towards a target}
@@ -13,6 +13,8 @@ prost(loading, norm, rotated = FALSE)
 
 \item{rotated}{A TRUE/FALSE operator indicating if the rotated matrix should
 be returned in addition to Tucker's Phi}
+
+\item{digits}{The number of digits to be displayed in the output, defaults to 2}
 }
 \value{
 Returns Tuckers Phi evaluating the congruence of the loading matrix

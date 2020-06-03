@@ -6,7 +6,7 @@
 The function allows for a simple one step test of configural, metric, and
 scalar equivalence between multiple groups.}
 \usage{
-equival(x, dat, group, standart_lv = TRUE, orthog = TRUE)
+equival(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "MLM")
 }
 \arguments{
 \item{x}{CFA model identical to models provided to lavaan.}
@@ -16,6 +16,8 @@ specified model.}
 
 \item{standart_lv}{A boolean that indicates whether the latent variables
 should be standardised.}
+
+\item{estim}{A string indicating the estimator to be used MLM for complete data and MLR for incomplete data. Defaults to MLM}
 
 \item{dx}{A character string that indicates the column of dat that contains
 the grouping variable. e.g "country"}

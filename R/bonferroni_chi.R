@@ -1,11 +1,14 @@
-#' Get more comprehensible output from lavTestScore
-#'
+#' Examening chisquare improvement if paths are unconstrained.
+#' The function returns the paths to be unconstrained based on chisquare change.
+#' Adjusted P-values are calculated based on iterative Bonferroni corrections.
 #' @param lavaan.fit Model fitted with lavaan
 #' @param ... Arguments passed to lavTestScore
+#' @param ndigit Number of digits to round chi and p to
+#' @param exp_p Expected p-value
 #' @author Maksim Rudnev
-#' @export lavTestScore.clean
+#' @export release_bonferroni
 
-lavTestScore.clean <- function(lavaan.fit,  ndigit = 3,...) {
+release_bonferroni <- function(lavaan.fit, exp_p = .05,  ndigit = 3,...) {
   require("lavaan")
   lvts <- lavTestScore(lavaan.fit, ...)
 
@@ -50,7 +53,7 @@ lavTestScore.clean <- function(lavaan.fit,  ndigit = 3,...) {
   }
 
 
-  return(lvts)
 
 
+  iterative_unconstrain(lvts$uni)
 }

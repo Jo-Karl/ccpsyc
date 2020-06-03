@@ -4,7 +4,7 @@
 \alias{lavTestScore.clean}
 \title{Get more comprehensible output from lavTestScore}
 \usage{
-lavTestScore.clean(lavaan.fit, ...)
+lavTestScore.clean(lavaan.fit, ndigit = 3, ...)
 }
 \arguments{
 \item{lavaan.fit}{Model fitted with lavaan}
