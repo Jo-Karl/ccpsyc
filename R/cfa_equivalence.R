@@ -14,6 +14,7 @@
   #'                    should be standardised.
   #' @param orthogonal A boolean that indicates whether the latent variables
   #'                    should be orthogonal.
+  #' @param estim A string indicating the estimator to be used MLM for complete data and MLR for incomplete data. Defaults to MLM
   #' @return Returns a data frame with the fit indices for each model and delta
   #'         values comparing the different levels of equivalence.
   #' @export equival
@@ -23,25 +24,25 @@
 
 
 
-  equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE){
+  equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "MLM"){
 
   PD_1 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
-                      estimator = "MLM",
+                      estimator = estim,
                       group = paste(group),
                       std.lv = standart_lv,
                       orthogonal = orthog)
 
   PD_2 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
-                      estimator = "MLM", group = paste(group),
+                      estimator = estim, group = paste(group),
                       group.equal = c("loadings"),
                       std.lv = standart_lv,
                       orthogonal = orthog)
 
   PD_3 <- lavaan::cfa(x, data = eval(substitute(dat), envir = .GlobalEnv,
                                      enclos = parent.frame()),
-                      estimator = "MLM", group = paste(group),
+                      estimator = estim, group = paste(group),
                       group.equal = c("loadings", "intercepts"),
                       std.lv = standart_lv,
                       orthogonal = orthog)
