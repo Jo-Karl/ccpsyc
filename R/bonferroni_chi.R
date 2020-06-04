@@ -8,7 +8,7 @@
 #' @author Maksim Rudnev
 #' @export release_bonferroni
 
-release_bonferroni <- function(lavaan.fit, exp_p = .05,  ndigit = 3,...) {
+release_bonferroni <- function(lavaan.fit, ndigit = 3, ...) {
   require("lavaan")
   lvts <- lavTestScore(lavaan.fit, ...)
 
