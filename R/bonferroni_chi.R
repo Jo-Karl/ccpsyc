@@ -8,7 +8,7 @@
 #' @author Maksim Rudnev
 #' @export release_bonferroni
 
-release_bonferroni <- function(lavaan.fit, ndigit = 3, ...) {
+release_bonferroni <- function(lavaan.fit, ndigit = 3, exp_p = .05, ...) {
   require("lavaan")
   lvts <- lavTestScore(lavaan.fit, ...)
 
@@ -55,5 +55,18 @@ release_bonferroni <- function(lavaan.fit, ndigit = 3, ...) {
 
 
 
-  iterative_unconstrain(lvts$uni)
+    df <- data.frame(Term = NULL,
+                   Group1 = NULL,
+                   Group2 = NULL,
+                   Chi.square = NULL,
+                   df = NULL,
+                   p.value = NULL)
+  lvts$uni$p.value_adj <- lvts$uni$p.value
+  while (min(lvts$uni$p.value_adj) <= exp_p) {
+    out <- lvts$uni[which.max(lvts$uni$Chi.square),]
+    lvts$uni <- x$uni[-which.max(lvts$uni$Chi.square),]
+    df <- rbind(df, out)
+    lvts$uni$p.value_adj <- lvts$uni$p.value * (nrow(df) + 1)
+  }
+  return(df)
 }
