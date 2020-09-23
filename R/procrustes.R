@@ -10,34 +10,38 @@
 #'         to the normative matrix
 #' @export
 prost <- function(loading, norm, rotated = FALSE, digits = 2) {
-    if (rotated == TRUE){
-      rotated <- MCMCpack::procrustes(loading, norm)
-      nx <- dim(rotated$X.new)[2]
-      ny <- dim(norm)[2]
-      cross <- t(norm) %*% rotated$X.new
-      sumsx <- sqrt(1/diag(t(rotated$X.new) %*% rotated$X.new))
-      sumsy <- sqrt(1/diag(t(norm) %*% norm))
-      result <- matrix(rep(0, nx * ny), ncol = nx)
-      result <- round(sumsy * (cross * rep(sumsx, each = ny)), digits)
-      congruence <- diag(t(result))
-      lin.corr <- cor(rotated$X.new, norm)
-      lin <- round(lin.corr[col(lin.corr) == row(lin.corr)],digits)
-      congruence.list <- list(rotated.matrix = rotated, tuckers.phi = congruence,
-                              correlation = lin)
-    }else{
-      rotated <- MCMCpack::procrustes(loading, norm)
-      nx <- dim(rotated$X.new)[2]
-      ny <- dim(norm)[2]
-      cross <- t(norm) %*% rotated$X.new
-      sumsx <- sqrt(1/diag(t(rotated$X.new) %*% rotated$X.new))
-      sumsy <- sqrt(1/diag(t(norm) %*% norm))
-      result <- matrix(rep(0, nx * ny), ncol = nx)
-      result <- round(sumsy * (cross * rep(sumsx, each = ny)), digits)
-      congruence <- diag(t(result))
-      lin.corr <- cor(rotated$X.new, norm)
-      lin <- round(lin.corr[col(lin.corr) == row(lin.corr)], digits)
-      congruence.list <- list(tuckers.phi = congruence,
-                              correlation = lin)
-    }
-  return (congruence.list)
+  if (rotated == TRUE) {
+    rotated <- MCMCpack::procrustes(loading, norm)
+    nx <- dim(rotated$X.new)[2]
+    ny <- dim(norm)[2]
+    cross <- t(norm) %*% rotated$X.new
+    sumsx <- sqrt(1 / diag(t(rotated$X.new) %*% rotated$X.new))
+    sumsy <- sqrt(1 / diag(t(norm) %*% norm))
+    result <- matrix(rep(0, nx * ny), ncol = nx)
+    result <- round(sumsy * (cross * rep(sumsx, each = ny)), digits)
+    congruence <- diag(t(result))
+    lin.corr <- cor(rotated$X.new, norm)
+    lin <- round(lin.corr[col(lin.corr) == row(lin.corr)], digits)
+    congruence.list <- list(
+      rotated.matrix = rotated, tuckers.phi = congruence,
+      correlation = lin
+    )
+  } else {
+    rotated <- MCMCpack::procrustes(loading, norm)
+    nx <- dim(rotated$X.new)[2]
+    ny <- dim(norm)[2]
+    cross <- t(norm) %*% rotated$X.new
+    sumsx <- sqrt(1 / diag(t(rotated$X.new) %*% rotated$X.new))
+    sumsy <- sqrt(1 / diag(t(norm) %*% norm))
+    result <- matrix(rep(0, nx * ny), ncol = nx)
+    result <- round(sumsy * (cross * rep(sumsx, each = ny)), digits)
+    congruence <- diag(t(result))
+    lin.corr <- cor(rotated$X.new, norm)
+    lin <- round(lin.corr[col(lin.corr) == row(lin.corr)], digits)
+    congruence.list <- list(
+      tuckers.phi = congruence,
+      correlation = lin
+    )
+  }
+  return(congruence.list)
 }

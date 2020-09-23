@@ -7,11 +7,12 @@
 #' @return Returns a list of dataframes with only the selected groups
 #' @export
 splitgroup <- function(df, group, named = FALSE, name.list = NA) {
-  A <- split(df, df[,paste(group)])
-  B <- lapply(seq_along(A), function(x){
-    as.data.frame(A[[x]])[, paste(df[-which(names(df) %in% c(paste(group)))])]})
-  if(named ==  TRUE){
-  names(B) <- name.list
+  A <- split(df, df[, paste(group)])
+  B <- lapply(seq_along(A), function(x) {
+    as.data.frame(A[[x]])[, paste(df[-which(names(df) %in% c(paste(group)))])]
+  })
+  if (named == TRUE) {
+    names(B) <- name.list
   }
   return(B)
 }

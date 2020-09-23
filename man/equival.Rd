@@ -35,6 +35,6 @@ The function allows for a simple one step test of configural, metric, and
 scalar equivalence between multiple groups.
 }
 \examples{
-model_voice <- 'voice =~ voice1 + voice2 + voice3'
+model_voice <- "voice =~ voice1 + voice2 + voice3"
 equival(x = model_voice, dat = example, dx = "country")
 }

@@ -34,3 +34,6 @@ dir This column contains the direction (positive or negative) of the highest loa
 \description{
 Function to quickly organize and clear psych factor loadings
 }
+\examples{
+
+}
