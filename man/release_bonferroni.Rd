@@ -6,14 +6,14 @@
 The function returns the paths to be unconstrained based on chisquare change.
 Adjusted P-values are calculated based on iterative Bonferroni corrections.}
 \usage{
-release_bonferroni(lavaan.fit, exp_p = 0.05, ndigit = 3, ...)
+release_bonferroni(lavaan.fit, ndigit = 3, exp_p = 0.05, ...)
 }
 \arguments{
 \item{lavaan.fit}{Model fitted with lavaan}
 
-\item{exp_p}{Expected p-value}
-
 \item{ndigit}{Number of digits to round chi and p to}
+
+\item{exp_p}{Expected p-value}
 
 \item{...}{Arguments passed to lavTestScore}
 }
