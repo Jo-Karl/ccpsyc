@@ -15,8 +15,7 @@ Imports:
     MCMCpack (>= 1.4-0),
     psych (>= 1.7.8),
     dplyr (>= 0.7.4),
-	  lavaan,
-    userfriendlyscience
+	  lavaan
 RoxygenNote: 7.1.0
 Suggests: knitr,
     rmarkdown,

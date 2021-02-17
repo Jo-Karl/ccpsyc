@@ -9,6 +9,7 @@
 
 
 mg_rel_table <- function(df_s, measure_list, group, digitn = 3, seed = 2711) {
+  warning("To use this function, please install a version of userfriednlyscience from the CRAN archive")
   if (length(names(measure_list)) == 0) {
     stop("Please provide the measure list as named list.
          The format should be list(measure_name1 = c('Item1', 'Item2', 'Item3'),

@@ -17,7 +17,7 @@
 #'
 clearing_fa <-
   function(psych_fa, cutoff = .40, dbl_dist = .20, key_file = NULL, cleaned = T) {
-    loadings <-
+      loadings <-
       rownames_to_column(data.frame(unclass(psych_fa$loadings)), "item")
     loadings_s <- loadings
 
@@ -27,7 +27,7 @@ clearing_fa <-
 
 
 
-    loadings$auto[!apply(abs(loadings[2:(ncol(loadings_s))]), 1, max) >= cutoff] <- NA
+    loadings$auto[!apply(abs(loadings[2:(ncol(loadings_s))]), 1, max) >= cutoff] <- "Low"
 
 
     ordered <- apply(abs(loadings[2:(ncol(loadings_s))]), 1, function(x) {
@@ -40,11 +40,11 @@ clearing_fa <-
     df_full <- cbind(loadings, ordered)
 
     df_full$clean <- if_else(df_full$distance >= dbl_dist, df_full$auto, "Double")
-    n_na <- sum(is.na(df_full$auto))
+    n_na <- sum((df_full$auto == "Low"))
     n_double <- sum(df_full$clean == "Double")
-    df_full$clean[df_full$clean == "Double"] <- NA
-    df_full$dir <- apply(df_full[2:(ncol(loadings_s))], 1, function(x) if_else(x[which.max(abs(x))] < 0, "neg", "pos"))
 
+    df_full$dir <- apply(df_full[2:(ncol(loadings_s))], 1, function(x) if_else(x[which.max(abs(x))] < 0, "neg", "pos"))
+    df_full$max_load <- apply(df_full[2:(ncol(loadings_s))], 1, function(x) max(abs(x)))
     if (!is.null(key_file) & is.character(key_file)) {
       if (grepl(".xlsx$", key_file)) {
         key_xlsx <- xlsx::read.xlsx(key_file, sheetIndex = 1)
@@ -57,11 +57,12 @@ clearing_fa <-
       }
     }
     if (!is.null(key_file) & is.character(key_file)) {
-      df_load <- df_full[c("item", "wording", "clean", "dir")]
+      df_load <- df_full[c("item", "wording", "clean", "dir", "max_load")]
     } else {
-      df_load <- df_full[c("item", "clean", "dir")]
+      df_load <- df_full[c("item", "clean", "dir", "max_load")]
     }
     if (cleaned) {
+      df_load$clean[df_load$clean %in% c("Double", "Low")] <- NA
       cleaned_df <- filter(df_load, !is.na(clean))
       message(paste0(
         "Of the ", nrow(df_load), " items ", nrow(cleaned_df), " (", round((nrow(cleaned_df) / nrow(df_load)) * 100, 2), "%) ", "were retained. ", n_na, " (", round((n_na / nrow(df_load)) * 100, 2), "%) ", "showed no substantative loadings and ",
