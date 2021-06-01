@@ -20,7 +20,7 @@ mg_rel_table <- function(df_s, measure_list, group, digitn = 3, seed = 2711) {
     lapply(measure_list, function(y) {
       rel_list <-
         lapply(df_split, function(x) {
-          inter <- userfriendlyscience::scaleStructure(x,
+          inter <- ufs::scaleStructure(x,
             items = y,
             digits = digitn,
             interval.type = "normal-theory",

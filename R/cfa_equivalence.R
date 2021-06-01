@@ -22,6 +22,11 @@
 #' model_voice <- "voice =~ voice1 + voice2 + voice3"
 #' equival(x = model_voice, dat = example, dx = "country")
 equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "MLM") {
+  if(orthog){
+    message("You have set orthogonal latent variables to be true. This is the default
+            as most exploratory research uses varimax rotations modelling fators as orthogonal.
+            To disable this set orthog = F")
+  }
   PD_1 <- lavaan::cfa(x,
     data = eval(substitute(dat),
       envir = .GlobalEnv,
