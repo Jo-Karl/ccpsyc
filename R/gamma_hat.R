@@ -3,12 +3,8 @@
 #' @param object A lavaan output object that was fitted with a MLM estimator
 #'
 #' @return gamma_hat_scaled
-#' @export
 #'
-#' @examples
-#' model_voice <- "voice =~ voice1m + voice2m + voice3m"
-#' cfa_out <- lavaan::cfa(model_voice, example, group = "country")
-#' gamma_hat_scaled(cfa_out)
+
 gamma_hat_scaled <- function(object) {
   fit <- lavaan::lavInspect(object, "fit")
   p <- length(lavaan::lavNames(object, type = "ov", group = 1))

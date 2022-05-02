@@ -15,8 +15,3 @@ gamma_hat_scaled
 \description{
 Gamma Hat from MLM fitted lavaan object
 }
-\examples{
-model_voice <- "voice =~ voice1m + voice2m + voice3m"
-cfa_out <- lavaan::cfa(model_voice, example, group = "country")
-gamma_hat_scaled(cfa_out)
-}

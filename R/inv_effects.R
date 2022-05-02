@@ -5,6 +5,19 @@
 ################### Based on code by Heather Gunn####################################
 # https://www.tandfonline.com/doi/full/10.1080/10705511.2019.1689507?journalCode=hsem20
 ####################################################################################
+#' Invariance Effect Sizes
+#'
+#' @param df Multi-group dataframe
+#' @param items vector of items for the target construct
+#' @param group string defining grouping variable
+#' @param intercept_fix Which item should have a fixed intercept defaults to the first item
+#' @param lowerLV Lower range of latent variable tested
+#' @param upperLV Upper range of latent variable tested
+#' @param nodewidth Steps tested
+#' @param ... Passes on to lavaan CFA functions
+#' @export invariance_eff
+#'
+
 invariance_eff <- function(df, items, group, nodewidth = .01, intercept_fix = 1, lowerLV = -10, upperLV = 10, ...) {
   ## Declaring global variables to avoid notes by CRAN
   op <- ustart <- label <- NULL
