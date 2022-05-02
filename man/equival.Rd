@@ -35,7 +35,9 @@ The function allows for a simple one step test of configural, metric, and
 scalar equivalence between multiple groups.
 }
 \examples{
+\dontrun{
 model <- "voice =~ voice1m + voice2m + voice3m
           help =~ help1m + help2m + help3m"
 equival(x = model, dat = example, group = "country")
+}
 }

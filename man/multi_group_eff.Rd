@@ -28,5 +28,8 @@ and the secon reporting the pairwise comparisons.
 Pairwise Effect sizes of similarities and difference in the psychometric structure between multiple groups
 }
 \examples{
+\dontrun{
+example_s <- dplyr::filter(example, country \%in\% c("NZ", "BRA"))
 multi_group_eff(df = example, group = "country", items = paste0("voice",1:3, "m"))
+}
 }

@@ -19,9 +19,11 @@
 #'         values comparing the different levels of equivalence.
 #' @export equival
 #' @examples
+#' \dontrun{
 #' model <- "voice =~ voice1m + voice2m + voice3m
 #'           help =~ help1m + help2m + help3m"
 #' equival(x = model, dat = example, group = "country")
+#' }
 equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "MLM") {
   if (orthog) {
     message("You have set orthogonal latent variables to be true. This is the default

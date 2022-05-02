@@ -12,10 +12,12 @@
 #' @export boot_inv_eff
 #'
 #' @examples
+#' \dontrun{
 #' two_country <- dplyr::filter(example, country %in% c("NZ" , "BRA"))
 #' boot_inv_eff(n = 10,
 #'              n_sample = 200, df = two_country, group = "country",
 #'               items = paste0("voice",1:3, "m"))
+#'               }
 boot_inv_eff <- function(n, n_sample, df, items, group, eff_sizes = c("SDI2", "UDI2", "WSDI", "WUDI", "dmacs"), seed = 2711){
   set.seed(seed)
   t_list <-

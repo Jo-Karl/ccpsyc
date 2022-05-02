@@ -7,10 +7,7 @@ Authors@R:
            family = "Karl",
            role = c("aut", "cre"),
            email = "johannes.a.karl@gmail.com")
-Description: This package is intended to combine multiple functions
-    automating and simplyfing common functions used in Cross-Cultural
-    Psychology. The prefered data format for this package is the long data
-    format.
+Description:  With the development of new cross-cultural methods this package is intended to combine multiple functions automating and simplifying functions providing a unified analysis approach for commonly employed methods. 
 License: GPL-3
 Depends: 
     R (>= 4.0.0)
@@ -30,8 +27,6 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
-VignetteBuilder: 
-    knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true

@@ -11,7 +11,10 @@
 #' @export multi_group_eff
 #'
 #' @examples
+#' \dontrun{
+#' example_s <- dplyr::filter(example, country %in% c("NZ", "BRA"))
 #' multi_group_eff(df = example, group = "country", items = paste0("voice",1:3, "m"))
+#' }
 multi_group_eff <-
   function(df, group, items, eff_sizes = c("SDI2", "UDI2", "WSDI", "WUDI", "dmacs")){
     comb_m <- RcppAlgos::comboGeneral(unique(df[[group]]),2, repetition = F)

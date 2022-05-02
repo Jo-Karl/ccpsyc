@@ -36,8 +36,10 @@ Returns a dataframe with the bootstrapped effect sizes for two country compariss
 Bootstrapped pairwise differences in psychometric function of groups.
 }
 \examples{
+\dontrun{
 two_country <- dplyr::filter(example, country \%in\% c("NZ" , "BRA"))
 boot_inv_eff(n = 10,
              n_sample = 200, df = two_country, group = "country",
               items = paste0("voice",1:3, "m"))
+              }
 }
