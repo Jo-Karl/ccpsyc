@@ -9,6 +9,8 @@ lavTestScore.clean(lavaan.fit, ndigit = 3, ...)
 \arguments{
 \item{lavaan.fit}{Model fitted with lavaan}
 
+\item{ndigit}{Defines the rounding}
+
 \item{...}{Arguments passed to lavTestScore}
 }
 \description{

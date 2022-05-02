@@ -1,17 +1,18 @@
 #' Get more comprehensible output from lavTestScore
 #'
 #' @param lavaan.fit Model fitted with lavaan
+#' @param ndigit Defines the rounding
 #' @param ... Arguments passed to lavTestScore
 #' @author Maksim Rudnev
 #' @export lavTestScore.clean
 
 lavTestScore.clean <- function(lavaan.fit, ndigit = 3, ...) {
-  require("lavaan")
-  lvts <- lavTestScore(lavaan.fit, ...)
+  plabel <- NULL
+  lvts <- lavaan::lavTestScore(lavaan.fit, ...)
 
   for (lvts.part in names(lvts)[names(lvts) %in% c("uni", "cumulative")]) {
-    partab.a <- partable(lavaan.fit)[, c(c("lhs", "op", "rhs", "group", "plabel"))] %>%
-      dplyr::filter(., plabel != "")
+    partab.a <- lavaan::partable(lavaan.fit)[, c(c("lhs", "op", "rhs", "group", "plabel"))] %>%
+      dplyr::filter(.data, plabel != "")
 
     names(partab.a)[1:3] <- c("one", "two", "three")
 
@@ -26,8 +27,8 @@ lavTestScore.clean <- function(lavaan.fit, ndigit = 3, ...) {
       all.x = T, suffixes = c(".lhs", ".rhs")
     )
 
-    out2$group.lhs <- factor(out2$group.lhs, levels = 1:length(lavInspect(lavaan.fit, "group.label")), labels = lavInspect(lavaan.fit, "group.label"))
-    out2$group.rhs <- factor(out2$group.rhs, levels = 1:length(lavInspect(lavaan.fit, "group.label")), labels = lavInspect(lavaan.fit, "group.label"))
+    out2$group.lhs <- factor(out2$group.lhs, levels = 1:length(lavaan::lavInspect(lavaan.fit, "group.label")), labels = lavaan::lavInspect(lavaan.fit, "group.label"))
+    out2$group.rhs <- factor(out2$group.rhs, levels = 1:length(lavaan::lavInspect(lavaan.fit, "group.label")), labels = lavaan::lavInspect(lavaan.fit, "group.label"))
 
     out3 <- data.frame(
       Term = paste(out2$one.lhs, out2$two.lhs, out2$three.lhs, sep = ""),
@@ -46,8 +47,8 @@ lavTestScore.clean <- function(lavaan.fit, ndigit = 3, ...) {
 
   if (any(names(lvts) == c("epc"))) {
     lvts[["epc"]]$group <- factor(lvts[["epc"]]$group,
-      levels = 1:length(lavInspect(lavaan.fit, "group.label")),
-      labels = lavInspect(lavaan.fit, "group.label")
+      levels = 1:length(lavaan::lavInspect(lavaan.fit, "group.label")),
+      labels = lavaan::lavInspect(lavaan.fit, "group.label")
     )
   }
 

@@ -14,20 +14,20 @@ equival(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "MLM")
 \item{dat}{A data frame or tibble containing the raw data for the
 specified model.}
 
+\item{group}{A character string that indicates the column of dat that contains
+the grouping variable. e.g "country"}
+
 \item{standart_lv}{A boolean that indicates whether the latent variables
 should be standardised.}
 
-\item{estim}{A string indicating the estimator to be used MLM for complete data and MLR for incomplete data. Defaults to MLM}
-
-\item{dx}{A character string that indicates the column of dat that contains
-the grouping variable. e.g "country"}
-
-\item{orthogonal}{A boolean that indicates whether the latent variables
+\item{orthog}{A boolean that indicates whether the latent variables
 should be orthogonal.}
+
+\item{estim}{A string indicating the estimator to be used MLM for complete data and MLR for incomplete data. Defaults to MLM}
 }
 \value{
 Returns a data frame with the fit indices for each model and delta
-        values comparing the different levels of equivalence.
+values comparing the different levels of equivalence.
 }
 \description{
 One-step equivalence testing
@@ -35,6 +35,7 @@ The function allows for a simple one step test of configural, metric, and
 scalar equivalence between multiple groups.
 }
 \examples{
-model_voice <- "voice =~ voice1 + voice2 + voice3"
-equival(x = model_voice, dat = example, dx = "country")
+model <- "voice =~ voice1m + voice2m + voice3m
+          help =~ help1m + help2m + help3m"
+equival(x = model, dat = example, group = "country")
 }

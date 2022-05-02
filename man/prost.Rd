@@ -18,7 +18,7 @@ be returned in addition to Tucker's Phi}
 }
 \value{
 Returns Tuckers Phi evaluating the congruence of the loading matrix
-        to the normative matrix
+to the normative matrix
 }
 \description{
 Procrustes rotation function, returning Tucker's Phi

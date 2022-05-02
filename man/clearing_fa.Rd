@@ -35,5 +35,7 @@ dir This column contains the direction (positive or negative) of the highest loa
 Function to quickly organize and clear psych factor loadings
 }
 \examples{
-
+library(psych)
+fa_solution <- fa(example[c(paste0("help", 1:6, "m"), c(paste0("voice", 1:5, "m")))], nfactors = 2)
+clearing_fa(fa_solution)
 }

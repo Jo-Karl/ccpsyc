@@ -8,7 +8,7 @@
 #'
 #' @return Returns Tuckers Phi evaluating the congruence of the loading matrix
 #'         to the normative matrix
-#' @export
+#' @export prost
 prost <- function(loading, norm, rotated = FALSE, digits = 2) {
   if (rotated == TRUE) {
     rotated <- MCMCpack::procrustes(loading, norm)
@@ -20,7 +20,7 @@ prost <- function(loading, norm, rotated = FALSE, digits = 2) {
     result <- matrix(rep(0, nx * ny), ncol = nx)
     result <- round(sumsy * (cross * rep(sumsx, each = ny)), digits)
     congruence <- diag(t(result))
-    lin.corr <- cor(rotated$X.new, norm)
+    lin.corr <- stats::cor(rotated$X.new, norm)
     lin <- round(lin.corr[col(lin.corr) == row(lin.corr)], digits)
     congruence.list <- list(
       rotated.matrix = rotated, tuckers.phi = congruence,
@@ -36,7 +36,7 @@ prost <- function(loading, norm, rotated = FALSE, digits = 2) {
     result <- matrix(rep(0, nx * ny), ncol = nx)
     result <- round(sumsy * (cross * rep(sumsx, each = ny)), digits)
     congruence <- diag(t(result))
-    lin.corr <- cor(rotated$X.new, norm)
+    lin.corr <-  stats::cor(rotated$X.new, norm)
     lin <- round(lin.corr[col(lin.corr) == row(lin.corr)], digits)
     congruence.list <- list(
       tuckers.phi = congruence,

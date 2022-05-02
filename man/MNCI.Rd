@@ -15,6 +15,3 @@ Returns McDonald's non-centrality index
 \description{
 Non-Centrality Index
 }
-\examples{
-MNCI(lavaan1)
-}

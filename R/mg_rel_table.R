@@ -26,7 +26,7 @@ mg_rel_table <- function(df_s, measure_list, group, digitn = 3, seed = 2711) {
             interval.type = "normal-theory",
             bootstrapSeed = seed
           )
-          out <- tibble(
+          out <- dplyr::tibble(
             alpha = paste0(
               format(round(inter$output$cronbach.alpha, digitn), nsmall = digitn),
               "[",
@@ -54,11 +54,11 @@ mg_rel_table <- function(df_s, measure_list, group, digitn = 3, seed = 2711) {
           out
         })
       do.call(rbind, rel_list) %>%
-        cbind(country = names(df_split), .)
+        cbind(country = names(df_split), .data)
     })
   joined <-
     do.call(rbind, rel_outer) %>%
-    cbind(measure = rep(names(measure_list), each = length(names(df_split))), .)
+    cbind(measure = rep(names(measure_list), each = length(names(df_split))), .data)
   rownames(joined) <- NULL
   joined
 }

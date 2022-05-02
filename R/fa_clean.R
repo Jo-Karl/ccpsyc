@@ -11,14 +11,18 @@
 #'
 #' @return clean This column contains the assignment after removing NAs and double loadings
 #' @return dir This column contains the direction (positive or negative) of the highest loading.
-#' @export
-#'
+#' @export clearing_fa
+#' @importFrom rlang .data
 #' @examples
-#'
+#' library(psych)
+#' fa_solution <- fa(example[c(paste0("help", 1:6, "m"), c(paste0("voice", 1:5, "m")))], nfactors = 2)
+#' clearing_fa(fa_solution)
 clearing_fa <-
   function(psych_fa, cutoff = .40, dbl_dist = .20, key_file = NULL, cleaned = T) {
-      loadings <-
-      rownames_to_column(data.frame(unclass(psych_fa$loadings)), "item")
+    ### This section declares variables globally to avoid CRAN nots about non-binded vars
+    clean <- X1 <- X2 <- NULL
+    loadings <-
+      tibble::rownames_to_column(data.frame(unclass(psych_fa$loadings)), "item")
     loadings_s <- loadings
 
 
@@ -31,27 +35,27 @@ clearing_fa <-
 
 
     ordered <- apply(abs(loadings[2:(ncol(loadings_s))]), 1, function(x) {
-      t(x) %>%
-        sort(., decreasing = T)
+        sort(t(x), decreasing = T)
     }) %>%
-      t(.) %>%
-      data.frame(distance = .[, 1] - .[, 2])
+      t() %>%
+      data.frame() %>%
+      dplyr::mutate(distance = X1 - X2)
 
     df_full <- cbind(loadings, ordered)
 
-    df_full$clean <- if_else(df_full$distance >= dbl_dist, df_full$auto, "Double")
+    df_full$clean <- dplyr::if_else(df_full$distance >= dbl_dist, df_full$auto, "Double")
     n_na <- sum((df_full$auto == "Low"))
     n_double <- sum(df_full$clean == "Double")
 
-    df_full$dir <- apply(df_full[2:(ncol(loadings_s))], 1, function(x) if_else(x[which.max(abs(x))] < 0, "neg", "pos"))
+    df_full$dir <- apply(df_full[2:(ncol(loadings_s))], 1, function(x) dplyr::if_else(x[which.max(abs(x))] < 0, "neg", "pos"))
     df_full$max_load <- apply(df_full[2:(ncol(loadings_s))], 1, function(x) max(abs(x)))
     if (!is.null(key_file) & is.character(key_file)) {
       if (grepl(".xlsx$", key_file)) {
         key_xlsx <- xlsx::read.xlsx(key_file, sheetIndex = 1)
-        df_full <- left_join(key_xlsx, df_full, by = "item")
+        df_full <- dplyr::left_join(key_xlsx, df_full, by = "item")
       } else if (grepl(".csv$", key_file)) {
         key_csv <- readr::read_csv(key_file)
-        df_full <- left_join(key_csv, df_full, by = "item")
+        df_full <- dplyr::left_join(key_csv, df_full, by = "item")
       } else {
         stop("Please either use a .csv or .xlsx file")
       }
@@ -63,7 +67,7 @@ clearing_fa <-
     }
     if (cleaned) {
       df_load$clean[df_load$clean %in% c("Double", "Low")] <- NA
-      cleaned_df <- filter(df_load, !is.na(clean))
+      cleaned_df <- dplyr::filter(df_load, !is.na(clean))
       message(paste0(
         "Of the ", nrow(df_load), " items ", nrow(cleaned_df), " (", round((nrow(cleaned_df) / nrow(df_load)) * 100, 2), "%) ", "were retained. ", n_na, " (", round((n_na / nrow(df_load)) * 100, 2), "%) ", "showed no substantative loadings and ",
         n_double, " (", round((n_double / nrow(df_load)) * 100, 2), "%) ", "showed double loadings"
@@ -71,7 +75,7 @@ clearing_fa <-
       return(cleaned_df)
     } else {
       l_df <- list(
-        filterd = filter(df_load, !is.na(clean)),
+        filterd = dplyr::filter(df_load, !is.na(clean)),
         all = df_full
       )
       return(l_df)

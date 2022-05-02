@@ -6,13 +6,15 @@
 #' @export
 #'
 #' @examples
-#' gamma_hat_scaled(lavaan1)
+#' model_voice <- "voice =~ voice1m + voice2m + voice3m"
+#' cfa_out <- lavaan::cfa(model_voice, example, group = "country")
+#' gamma_hat_scaled(cfa_out)
 gamma_hat_scaled <- function(object) {
-  fit <- lavInspect(object, "fit")
+  fit <- lavaan::lavInspect(object, "fit")
   p <- length(lavaan::lavNames(object, type = "ov", group = 1))
   nParam <- fit["npar"]
-  ngroup <- lavInspect(object, "ngroups")
-  n <- lavInspect(object, "ntotal")
+  ngroup <- lavaan::lavInspect(object, "ngroups")
+  n <- lavaan::lavInspect(object, "ntotal")
   n <- n - ngroup
   gammaHatScaled <- p / (p + 2 * ((fit["chisq.scaled"] -
     fit["df.scaled"]) / n))

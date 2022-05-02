@@ -5,12 +5,11 @@
 #' @return Returns McDonald's non-centrality index
 #' @export
 #'
-#' @examples
-#' MNCI(lavaan1)
+
 MNCI <- function(object) {
   ## McDonald, R. P. (1989). An index of goodness-of-fit based on noncentrality.
   ##  Journal of Classification, 6(1), 97-103. doi: 10.1007/bf01908590
-  fit <- inspect(object, "fit") # lavaan's default output
+  fit <- lavaan::inspect(object, "fit") # lavaan's default output
   chisq <- unlist(fit["chisq.scaled"]) # model Chi-square
   df <- unlist(fit["df.scaled"]) # model df
   n <- object@SampleStats@ntotal

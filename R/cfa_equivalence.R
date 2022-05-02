@@ -8,21 +8,22 @@
 #' @param x CFA model identical to models provided to lavaan.
 #' @param dat A data frame or tibble containing the raw data for the
 #'            specified model.
-#' @param dx A character string that indicates the column of dat that contains
+#' @param group A character string that indicates the column of dat that contains
 #'           the grouping variable. e.g "country"
 #' @param standart_lv A boolean that indicates whether the latent variables
 #'                    should be standardised.
-#' @param orthogonal A boolean that indicates whether the latent variables
+#' @param orthog A boolean that indicates whether the latent variables
 #'                    should be orthogonal.
 #' @param estim A string indicating the estimator to be used MLM for complete data and MLR for incomplete data. Defaults to MLM
 #' @return Returns a data frame with the fit indices for each model and delta
 #'         values comparing the different levels of equivalence.
 #' @export equival
 #' @examples
-#' model_voice <- "voice =~ voice1 + voice2 + voice3"
-#' equival(x = model_voice, dat = example, dx = "country")
+#' model <- "voice =~ voice1m + voice2m + voice3m
+#'           help =~ help1m + help2m + help3m"
+#' equival(x = model, dat = example, group = "country")
 equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "MLM") {
-  if(orthog){
+  if (orthog) {
     message("You have set orthogonal latent variables to be true. This is the default
             as most exploratory research uses varimax rotations modelling fators as orthogonal.
             To disable this set orthog = F")

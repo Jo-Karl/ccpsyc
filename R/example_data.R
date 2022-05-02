@@ -1,0 +1,22 @@
+#' Help and Voice Behavior in different countries
+#'
+#' @format A data frame with 5201 rows and 13 variables:
+#' \describe{
+#'   \item{country}{Country of sample}
+#'   \item{help1m}{First Help Item}
+#'   \item{help2m}{Second Help Item}
+#'   \item{help3m}{Third Help Item}
+#'   \item{help4m}{Fourth Help Item}
+#'   \item{help5m}{Fifth Help Item}
+#'   \item{help6m}{Sixth Help Item}
+#'   \item{help7m}{Seventh Help Item}
+#'   \item{voice1m}{First Voice Item}
+#'   \item{voice2m}{Second Voice Item}
+#'   \item{voice3m}{Third Voice Item}
+#'   \item{voice4m}{Fourth Voice Item}
+#'   \item{voice5m}{Fifth Voice Item}
+#'
+#'   ...
+#' }
+#' @source <https://www.frontiersin.org/articles/10.3389/fpsyg.2019.01507/full>
+"example"
