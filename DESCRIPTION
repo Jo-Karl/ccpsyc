@@ -1,6 +1,6 @@
 Type: Package
 Package: ccpsyc
-Title: Package for Cross-Cultural Analyses
+Title: Methods for Cross-Cultural Psychology
 Version: 0.2.5
 Authors@R: 
     person(given = "Johannes",
