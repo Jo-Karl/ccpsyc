@@ -2,7 +2,6 @@
 #'
 #' @param object A lavaan output object that was fitted with a MLM estimator
 #'
-#' @return gamma_hat_scaled
 #'
 
 gamma_hat_scaled <- function(object) {

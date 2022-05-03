@@ -2,7 +2,6 @@
 #'
 #' @param object A lavaan object that was fitted with a MLM estimator/
 #'
-#' @return Returns McDonald's non-centrality index
 #'
 
 MNCI <- function(object) {

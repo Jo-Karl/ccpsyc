@@ -7,7 +7,7 @@ Authors@R:
            family = "Karl",
            role = c("aut", "cre"),
            email = "johannes.a.karl@gmail.com")
-Description:  With the development of new cross-cultural methods this package is intended to combine multiple functions automating and simplifying functions providing a unified analysis approach for commonly employed methods. 
+Description: With the development of new cross-cultural methods this package is intended to combine multiple functions automating and simplifying functions providing a unified analysis approach for commonly employed methods. 
 License: GPL-3
 Depends: 
     R (>= 4.0.0)
@@ -22,7 +22,8 @@ Imports:
     xlsx,
     tibble,
     rlang,
-    RcppAlgos
+    RcppAlgos,
+    tidyr
 Suggests: 
     knitr,
     rmarkdown,

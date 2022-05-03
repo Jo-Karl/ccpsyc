@@ -32,6 +32,9 @@ invariance_eff(
 
 \item{...}{Passes on to lavaan CFA functions}
 }
+\value{
+Returns a dataframe with a row for each item and one column for each effect size
+}
 \description{
 Invariance Effect Sizes
 }

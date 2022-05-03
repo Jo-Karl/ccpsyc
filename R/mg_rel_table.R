@@ -6,6 +6,8 @@
 #' @param group Grouping variable in the dataset as string for example "country"
 #' @param digitn Controls the amount of digits shown in the output
 #' @param seed Seed for the bootstrapped confidence intervals
+#' @export mg_rel_table
+#' @return Returns a formatted dataframe with the reliability of all constructs by group
 
 
 mg_rel_table <- function(df_s, measure_list, group, digitn = 3, seed = 2711) {

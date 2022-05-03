@@ -15,6 +15,7 @@
 #' @param upperLV Upper range of latent variable tested
 #' @param nodewidth Steps tested
 #' @param ... Passes on to lavaan CFA functions
+#' @return Returns a dataframe with a row for each item and one column for each effect size
 #' @export invariance_eff
 #'
 

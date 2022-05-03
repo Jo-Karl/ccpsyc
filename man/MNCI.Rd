@@ -9,9 +9,6 @@ MNCI(object)
 \arguments{
 \item{object}{A lavaan object that was fitted with a MLM estimator/}
 }
-\value{
-Returns McDonald's non-centrality index
-}
 \description{
 Non-Centrality Index
 }

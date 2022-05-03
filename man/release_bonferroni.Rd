@@ -17,6 +17,9 @@ release_bonferroni(lavaan.fit, ndigit = 3, exp_p = 0.05, ...)
 
 \item{...}{Arguments passed to lavTestScore}
 }
+\value{
+Returns all paths which should be unconstrained
+}
 \description{
 Examening chisquare improvement if paths are unconstrained.
 The function returns the paths to be unconstrained based on chisquare change.

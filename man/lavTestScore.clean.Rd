@@ -13,6 +13,9 @@ lavTestScore.clean(lavaan.fit, ndigit = 3, ...)
 
 \item{...}{Arguments passed to lavTestScore}
 }
+\value{
+Returns a cleaned version of lavTestScore
+}
 \description{
 Get more comprehensible output from lavTestScore
 }

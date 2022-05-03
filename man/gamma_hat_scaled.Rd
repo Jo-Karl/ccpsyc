@@ -9,9 +9,6 @@ gamma_hat_scaled(object)
 \arguments{
 \item{object}{A lavaan output object that was fitted with a MLM estimator}
 }
-\value{
-gamma_hat_scaled
-}
 \description{
 Gamma Hat from MLM fitted lavaan object
 }

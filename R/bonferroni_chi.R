@@ -7,6 +7,7 @@
 #' @param exp_p Expected p-value
 #' @author Maksim Rudnev
 #' @export release_bonferroni
+#' @return Returns all paths which should be unconstrained
 #' @importFrom rlang .data
 
 release_bonferroni <- function(lavaan.fit, ndigit = 3, exp_p = .05, ...) {

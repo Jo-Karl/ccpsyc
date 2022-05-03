@@ -4,6 +4,7 @@
 #' @param ndigit Defines the rounding
 #' @param ... Arguments passed to lavTestScore
 #' @author Maksim Rudnev
+#' @return Returns a cleaned version of lavTestScore
 #' @export lavTestScore.clean
 
 lavTestScore.clean <- function(lavaan.fit, ndigit = 3, ...) {

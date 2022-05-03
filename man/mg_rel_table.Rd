@@ -18,6 +18,9 @@ The format should be list(measure_name1 = c('Item1', 'Item2', 'Item3'), measure_
 
 \item{seed}{Seed for the bootstrapped confidence intervals}
 }
+\value{
+Returns a formatted dataframe with the reliability of all constructs by group
+}
 \description{
 Multi-group reliability table
 }
