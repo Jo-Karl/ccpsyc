@@ -30,13 +30,13 @@ boot_inv_eff(
 \item{seed}{Seed for replicability}
 }
 \value{
-Returns a dataframe with the bootstrapped effect sizes for two country comparissons
+Returns a dataframe with the bootstrapped effect sizes based on the invariance_eff function in this package for two country comparisons.
 }
 \description{
 Bootstrapped pairwise differences in psychometric function of groups.
 }
 \examples{
-\dontrun{
+\donttest{
 two_country <- dplyr::filter(example, country \%in\% c("NZ" , "BRA"))
 boot_inv_eff(n = 10,
              n_sample = 200, df = two_country, group = "country",

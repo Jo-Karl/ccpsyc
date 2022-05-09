@@ -27,7 +27,7 @@ should be orthogonal.}
 }
 \value{
 Returns a data frame with the fit indices for each model and delta
-values comparing the different levels of equivalence.
+values comparing the different levels of equivalence. \href{https://www.frontiersin.org/articles/10.3389/fpsyg.2019.01507/full}{For a step by step interpretation see}.
 }
 \description{
 One-step equivalence testing
@@ -35,7 +35,7 @@ The function allows for a simple one step test of configural, metric, and
 scalar equivalence between multiple groups.
 }
 \examples{
-\dontrun{
+\donttest{
 model <- "voice =~ voice1m + voice2m + voice3m
           help =~ help1m + help2m + help3m"
 equival(x = model, dat = example, group = "country")

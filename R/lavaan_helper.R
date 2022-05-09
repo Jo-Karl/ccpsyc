@@ -4,7 +4,8 @@
 #' @param ndigit Defines the rounding
 #' @param ... Arguments passed to lavTestScore
 #' @author Maksim Rudnev
-#' @return Returns a cleaned version of lavTestScore
+#' @return Returns a dataframe which contains one row for each constrained parameter in the model together with a chi-square test indicating whether the parameter significantly differs between groups.
+#' This is a cleaned version identical to \code{\link[lavaan:lavTestScore]{lavTestScore}}.
 #' @export lavTestScore.clean
 
 lavTestScore.clean <- function(lavaan.fit, ndigit = 3, ...) {
@@ -13,7 +14,7 @@ lavTestScore.clean <- function(lavaan.fit, ndigit = 3, ...) {
 
   for (lvts.part in names(lvts)[names(lvts) %in% c("uni", "cumulative")]) {
     partab.a <- lavaan::partable(lavaan.fit)[, c(c("lhs", "op", "rhs", "group", "plabel"))] %>%
-      dplyr::filter(.data, plabel != "")
+      dplyr::filter(plabel != "")
 
     names(partab.a)[1:3] <- c("one", "two", "three")
 

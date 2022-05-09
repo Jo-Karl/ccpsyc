@@ -16,10 +16,10 @@
 #'                    should be orthogonal.
 #' @param estim A string indicating the estimator to be used MLM for complete data and MLR for incomplete data. Defaults to MLM
 #' @return Returns a data frame with the fit indices for each model and delta
-#'         values comparing the different levels of equivalence.
+#'         values comparing the different levels of equivalence. \href{https://www.frontiersin.org/articles/10.3389/fpsyg.2019.01507/full}{For a step by step interpretation see}.
 #' @export equival
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- "voice =~ voice1m + voice2m + voice3m
 #'           help =~ help1m + help2m + help3m"
 #' equival(x = model, dat = example, group = "country")
@@ -31,10 +31,7 @@ equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "M
             To disable this set orthog = F")
   }
   PD_1 <- lavaan::cfa(x,
-    data = eval(substitute(dat),
-      envir = .GlobalEnv,
-      enclos = parent.frame()
-    ),
+    data = dat,
     estimator = estim,
     group = paste(group),
     std.lv = standart_lv,
@@ -42,10 +39,7 @@ equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "M
   )
 
   PD_2 <- lavaan::cfa(x,
-    data = eval(substitute(dat),
-      envir = .GlobalEnv,
-      enclos = parent.frame()
-    ),
+    data = dat,
     estimator = estim, group = paste(group),
     group.equal = c("loadings"),
     std.lv = standart_lv,
@@ -53,10 +47,7 @@ equival <- function(x, dat, group, standart_lv = TRUE, orthog = TRUE, estim = "M
   )
 
   PD_3 <- lavaan::cfa(x,
-    data = eval(substitute(dat),
-      envir = .GlobalEnv,
-      enclos = parent.frame()
-    ),
+    data = dat,
     estimator = estim, group = paste(group),
     group.equal = c("loadings", "intercepts"),
     std.lv = standart_lv,

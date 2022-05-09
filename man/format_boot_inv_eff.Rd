@@ -10,17 +10,17 @@ format_boot_inv_eff(x)
 \item{x}{The output of a bootstrapped invariance effect call}
 }
 \value{
-A formatted tibble with all effectsizes and significant determined by 95\% CIs either crossing 0 or .30
+A formatted tibble with all effect sizes reported by boot_inv_eff from this package and significant determined by 95\% CIs either crossing 0 or .30
 }
 \description{
 Improving boot effectsize output
 }
 \examples{
-\dontrun{
+\donttest{
 two_country <- dplyr::filter(example, country \%in\% c("NZ" , "BRA"))
-boot_inv_eff(n = 10,
-             n_sample = 200, df = two_country, group = "country",
-              items = paste0("voice",1:3, "m"))
-format_boot_inv_eff(boot_inv_eff)
+boot_inv_eff_result <- boot_inv_eff(n = 10,
+                        n_sample = 200, df = two_country, group = "country",
+                        items = paste0("voice",1:3, "m"))
+format_boot_inv_eff(boot_inv_eff_result)
               }
 }

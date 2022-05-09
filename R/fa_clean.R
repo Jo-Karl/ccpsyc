@@ -18,7 +18,7 @@
 #' fa_solution <- fa(example[c(paste0("help", 1:6, "m"), c(paste0("voice", 1:5, "m")))], nfactors = 2)
 #' clearing_fa(fa_solution)
 clearing_fa <-
-  function(psych_fa, cutoff = .40, dbl_dist = .20, key_file = NULL, cleaned = T) {
+  function(psych_fa, cutoff = .40, dbl_dist = .20, key_file = NULL, cleaned = TRUE) {
     ### This section declares variables globally to avoid CRAN nots about non-binded vars
     clean <- X1 <- X2 <- NULL
     loadings <-

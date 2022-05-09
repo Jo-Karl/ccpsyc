@@ -15,7 +15,8 @@
 #' @param upperLV Upper range of latent variable tested
 #' @param nodewidth Steps tested
 #' @param ... Passes on to lavaan CFA functions
-#' @return Returns a dataframe with a row for each item and one column for each effect size
+#' @return Returns a dataframe with a row for each item comprising the uni-factorial solution and one column for each invariance effect size.
+#'  A detailed interpretation of each effect size is provided in  \href{https://www.tandfonline.com/doi/full/10.1080/10705511.2019.1689507?journalCode=hsem20}{Gunn et al. (2019)}.
 #' @export invariance_eff
 #'
 

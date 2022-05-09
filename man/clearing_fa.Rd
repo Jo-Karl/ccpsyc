@@ -9,7 +9,7 @@ clearing_fa(
   cutoff = 0.4,
   dbl_dist = 0.2,
   key_file = NULL,
-  cleaned = T
+  cleaned = TRUE
 )
 }
 \arguments{

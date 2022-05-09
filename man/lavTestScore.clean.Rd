@@ -14,7 +14,8 @@ lavTestScore.clean(lavaan.fit, ndigit = 3, ...)
 \item{...}{Arguments passed to lavTestScore}
 }
 \value{
-Returns a cleaned version of lavTestScore
+Returns a dataframe which contains one row for each constrained parameter in the model together with a chi-square test indicating whether the parameter significantly differs between groups.
+This is a cleaned version identical to \code{\link[lavaan:lavTestScore]{lavTestScore}}.
 }
 \description{
 Get more comprehensible output from lavTestScore

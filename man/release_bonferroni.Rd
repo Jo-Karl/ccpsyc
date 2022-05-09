@@ -18,7 +18,7 @@ release_bonferroni(lavaan.fit, ndigit = 3, exp_p = 0.05, ...)
 \item{...}{Arguments passed to lavTestScore}
 }
 \value{
-Returns all paths which should be unconstrained
+Returns a dataframe representing a Bonferroni corrected version of \code{\link{lavTestScore.clean}}.
 }
 \description{
 Examening chisquare improvement if paths are unconstrained.

@@ -8,11 +8,11 @@
 #' @param eff_sizes Effect sizes to be returned
 #' @param seed Seed for replicability
 #'
-#' @return Returns a dataframe with the bootstrapped effect sizes for two country comparissons
+#' @return Returns a dataframe with the bootstrapped effect sizes based on the invariance_eff function in this package for two country comparisons.
 #' @export boot_inv_eff
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' two_country <- dplyr::filter(example, country %in% c("NZ" , "BRA"))
 #' boot_inv_eff(n = 10,
 #'              n_sample = 200, df = two_country, group = "country",
