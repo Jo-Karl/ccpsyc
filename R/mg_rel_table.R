@@ -11,7 +11,6 @@
 
 
 mg_rel_table <- function(df_s, measure_list, group, digitn = 3, seed = 2711) {
-  warning("To use this function, please install a version of userfriednlyscience from the CRAN archive")
   if (length(names(measure_list)) == 0) {
     stop("Please provide the measure list as named list.
          The format should be list(measure_name1 = c('Item1', 'Item2', 'Item3'),
@@ -56,11 +55,11 @@ mg_rel_table <- function(df_s, measure_list, group, digitn = 3, seed = 2711) {
           out
         })
       do.call(rbind, rel_list) %>%
-        cbind(country = names(df_split), .data)
+        cbind(country = names(df_split), .)
     })
   joined <-
     do.call(rbind, rel_outer) %>%
-    cbind(measure = rep(names(measure_list), each = length(names(df_split))), .data)
+    cbind(measure = rep(names(measure_list), each = length(names(df_split))), .)
   rownames(joined) <- NULL
   joined
 }
