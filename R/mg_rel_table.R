@@ -54,12 +54,12 @@ mg_rel_table <- function(df_s, measure_list, group, digitn = 3, seed = 2711) {
           out$h <- gsub(x = out$h, pattern = "0\\.", replacement = "\\.")
           out
         })
-      do.call(rbind, rel_list) %>%
-        cbind(country = names(df_split), .)
+      bound_out <- do.call(rbind, rel_list)
+        cbind(country = names(df_split), bound_out)
     })
-  joined <-
-    do.call(rbind, rel_outer) %>%
-    cbind(measure = rep(names(measure_list), each = length(names(df_split))), .)
+
+    first_join <- do.call(rbind, rel_outer)
+    joined <- cbind(measure = rep(names(measure_list), each = length(names(df_split))), first_join)
   rownames(joined) <- NULL
   joined
 }
