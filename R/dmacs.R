@@ -13,99 +13,82 @@
 #' dMACS
 dMACS <- function(fit.cfa, group1, group2) {
 
-  # nitems ------------------------------------------------------------------
-  nitems <- lavaan::lavInspect(fit.cfa, what = "rsquare") %>%
-    .data[[1]] %>%
-    names(.data) %>%
-    length(.data)
+  rsquare_data <- lavaan::lavInspect(fit.cfa, what = "rsquare")
+  nitems <- length(names(rsquare_data[[1]]))
 
-  # Scale min and max -------------------------------------------------------
   cfa_minmax <- function(fit.cfa) {
     dt <- lavaan::inspect(fit.cfa, what = "data")
-    latentMin <- min(dt[[1]]) - 1
-    latentMax <- max(dt[[1]]) + 1
-    out <- cbind(as.numeric(latentMin), as.numeric(latentMax))
-    return(out)
-  }
-  # Loadings item----------------------------------------------------------------
-
-  reference_load <- lavaan::inspect(fit.cfa, what = "est") %>%
-    .data[[1]] %>%
-    .data$lambda
-  focal_load <- lavaan::inspect(fit.cfa, what = "est") %>%
-    .data[[2]] %>%
-    .data$lambda
-
-  # Intercept item----------------------------------------------------------------
-
-  reference_intrcp <- lavaan::inspect(fit.cfa, what = "est") %>%
-    .data[[1]] %>%
-    .data$nu
-  focal_intrcp <- lavaan::inspect(fit.cfa, what = "est") %>%
-    .data[[2]] %>%
-    .data$nu
-
-  # Pooled standard deviation -----------------------------------------------
-
-  pool.sd <- function(fit.cfa) {
-    cfa.se <- lavaan::lavInspect(fit.cfa, what = "se")
-    cfa.n <- lavaan::lavInspect(fit.cfa, what = "nobs")
-    l <- list()
-    test <- lavaan::lavInspect(fit.cfa, what = "rsquare") %>%
-      .data[[1]] %>%
-      names(.data) %>%
-      length(.data)
-    for (i in 1:test) {
-      grp1 <- cfa.se[[group1]]$nu[i] * sqrt(cfa.n[1])
-      grp2 <- cfa.se[[group2]]$nu[i] * sqrt(cfa.n[2])
-      numerator <- ((cfa.n[1] - 1) * grp1 + (cfa.n[2] - 1) * grp2)
-      denominator <- (cfa.n[1] - 1) + (cfa.n[2] - 1)
-      pooled.sd <- numerator / denominator
-      l[[paste("item", i)]] <- pooled.sd
-    }
-    result <- matrix(unlist(l), nrow = test, byrow = TRUE)
-    return(result)
+    latent_min <- min(dt[[1]]) - 1
+    latent_max <- max(dt[[1]]) + 1
+    return(cbind(as.numeric(latent_min), as.numeric(latent_max)))
   }
 
-  pld_sd <- pool.sd(fit.cfa)
+  est_data <- lavaan::inspect(fit.cfa, what = "est")
+  reference_load <- est_data[[1]]$lambda
+  focal_load <- est_data[[2]]$lambda
+  reference_intrcp <- est_data[[1]]$nu
+  focal_intrcp <- est_data[[2]]$nu
 
-  # latent variance ---------------------------------------------------------
+  pool_sd <- function(fit.cfa) {
+    cfa_se <- lavaan::lavInspect(fit.cfa, what = "se")
+    cfa_n <- lavaan::lavInspect(fit.cfa, what = "nobs")
 
-  fcl_lt_vrnc <- lavaan::inspect(fit.cfa, what = "est") %>%
-    .data[[2]] %>%
-    .data$psi
+    result_list <- vector("list", nitems)
 
-  ## create functions to calculate the mean predicted response
-
-  l <- list()
-  rowlab <- c()
-  for (i in c(1:nitems)) {
-    ## focal group predicted value
-    focal.fn <- function(x) {
-      mpr <- focal_intrcp[i] + focal_load[i] * x
-      return(mpr)
-    }
-    ## reference group predicted value
-    reference.fn <- function(x) {
-      mpr <- reference_intrcp[i] + reference_load[i] * x
-      return(mpr)
+    for (i in seq_len(nitems)) {
+      grp1_sd <- cfa_se[[group1]]$nu[i] * sqrt(cfa_n[1])
+      grp2_sd <- cfa_se[[group2]]$nu[i] * sqrt(cfa_n[2])
+      numerator <- (cfa_n[1] - 1) * grp1_sd + (cfa_n[2] - 1) * grp2_sd
+      denominator <- (cfa_n[1] - 1) + (cfa_n[2] - 1)
+      pooled_sd <- numerator / denominator
+      result_list[[i]] <- pooled_sd
     }
 
-    ## part under sqrt (function to integrate)
-    diff.fn <- function(x, i = i) {
-      d <- ((reference.fn(x) - focal.fn(x))^2) * stats::dnorm(x, mean = 0, sd = sqrt(fcl_lt_vrnc))
-      return(d)
-    }
-
-    ## final equation (and round to 3dp)
-    dMACS <- round((1 / pld_sd[i]) * sqrt(stats::integrate(diff.fn,
-      lower = cfa_minmax(fit.cfa)[, 1],
-      upper = cfa_minmax(fit.cfa)[, 2]
-    )$value), 3)
-
-    l[[length(l) + 1]] <- dMACS
-    rowlab[[length(rowlab) + 1]] <- paste("Item", i)
+    return(matrix(unlist(result_list), nrow = nitems, byrow = TRUE))
   }
-  m <- matrix(unlist(l), nrow = nitems, dimnames = list(rowlab, "dMAC"))
-  return(m)
+
+  pooled_sd <- pool_sd(fit.cfa)
+  focal_latent_variance <- est_data[[2]]$psi
+  minmax_values <- cfa_minmax(fit.cfa)
+
+  dmacs_results <- vector("list", nitems)
+  row_labels <- character(nitems)
+
+  for (i in seq_len(nitems)) {
+    focal_fn <- function(x) {
+      return(focal_intrcp[i] + focal_load[i] * x)
+    }
+
+    reference_fn <- function(x) {
+      return(reference_intrcp[i] + reference_load[i] * x)
+    }
+
+    diff_fn <- function(x) {
+      diff_val <- (reference_fn(x) - focal_fn(x))^2
+      normal_density <- stats::dnorm(x, mean = 0, sd = sqrt(focal_latent_variance))
+      return(diff_val * normal_density)
+    }
+
+    integration_result <- stats::integrate(
+      diff_fn,
+      lower = minmax_values[1],
+      upper = minmax_values[2]
+    )
+
+    dmacs_value <- round(
+      (1 / pooled_sd[i]) * sqrt(integration_result$value),
+      3
+    )
+
+    dmacs_results[[i]] <- dmacs_value
+    row_labels[i] <- paste("Item", i)
+  }
+
+  result_matrix <- matrix(
+    unlist(dmacs_results),
+    nrow = nitems,
+    dimnames = list(row_labels, "dMAC")
+  )
+
+  return(result_matrix)
 }
